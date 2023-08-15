@@ -1,0 +1,1 @@
+https://blog.jarrodwatts.com/nextjs-eslint-prettier-husky
