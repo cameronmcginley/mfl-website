@@ -7,6 +7,7 @@ interface TeamListItemProps {
   losses: number;
   place: number;
   teamID: number;
+  teamURL: string;
 }
 
 export default function TeamListItem(props: TeamListItemProps): JSX.Element {

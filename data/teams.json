@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "name_id": "examples",
-    "owner": "John Doe",
-    "name": "Examples",
-    "city": "New York",
+    "current_name_id": "examples",
+    "current_owner": "John Doe",
+    "current_name": "Examples",
+    "current_city": "New York",
     "all_time": {
       "wins": 10,
       "losses": 5,
@@ -14,12 +14,20 @@
       "2015": {
         "wins": 2,
         "losses": 8,
-        "ties": 2
+        "ties": 2,
+        "name_id": "examples",
+        "owner": "John Doe",
+        "name": "Examples",
+        "city": "New York"
       },
       "2016": {
         "wins": 10,
         "losses": 5,
-        "ties": 2
+        "ties": 2,
+        "name_id": "examples2",
+        "owner": "John Doe2",
+        "name": "Examples2",
+        "city": "New 2York"
       }
     }
   }

@@ -1,5 +1,7 @@
 "use client";
 
+import seasonsData from "@/data/seasons.json";
+import teamsData from "@/data/teams.json";
 import Dropdown from "@/src/components/mosaic/dropdown";
 import TeamListHeader from "@/src/components/mosaic/teams/list-header";
 import TeamListItem from "@/src/components/mosaic/teams/list-item";
@@ -12,22 +14,30 @@ export const metadata = {
 
 export default function CreditCards() {
   // Get seasons from database
-  const [selectedSeason, setSelectedSeason] = useState<number>(0);
-  const seasonOptions = {
-    0: "2022-2023",
-    1: "2021-2022",
-  };
+  const [selectedSeasonID, setselectedSeasonID] = useState<number>(0);
+  const [selectedSeasonStr, setselectedSeasonStr] = useState<string>();
 
-  // Convert season options to array of maps
+  // seasonsData is array of strings eg ["2015", "2016"], sort greatest to least
+  seasonsData.sort((a, b) => Number(b) - Number(a));
+
+  // Map seasonsData to map of 0: "2016", 1: "2015", etc
+  // This is to give them ID to be used for dropdown
+  const seasonOptions = seasonsData.reduce((acc, cur, i) => {
+    acc[i] = cur;
+    return acc;
+  }, {});
+
+  // Convert season options to array of maps, used for dropdown component
   const seasonOptionsSeperate = Object.keys(seasonOptions).map((key) => ({
     id: key,
     text: seasonOptions[key],
   }));
 
-  // Print everytime selectedSeason upodates
+  // Print everytime selectedSeasonID upodates (this num is returned by dropdown)
   useEffect(() => {
-    console.log("You selected: ", seasonOptions[selectedSeason]);
-  }, [selectedSeason]);
+    console.log("You selected: ", seasonOptions[selectedSeasonID]);
+    setselectedSeasonStr(seasonOptions[selectedSeasonID]);
+  }, [selectedSeasonID]);
 
   return (
     <div className="lg:relative lg:flex bg-white dark:bg-slate-900">
@@ -61,14 +71,36 @@ export default function CreditCards() {
             <Dropdown
               options={seasonOptionsSeperate}
               onUpdate={(option) => {
-                setSelectedSeason(option);
+                setselectedSeasonID(option);
               }}
-              selected={selectedSeason}
+              selected={selectedSeasonID}
             />
           </div>
 
+          {/* Table header */}
           <TeamListHeader />
 
+          {/* Map teams to list */}
+          {teamsData.map(
+            (team) =>
+              // Only include if it has values for the selected year
+              team.seasons.hasOwnProperty(selectedSeasonStr) && (
+                <TeamListItem
+                  key={team.id}
+                  teamID={team.id}
+                  teamURL={team.current_name_id}
+                  teamName={team.seasons[selectedSeasonStr].name}
+                  teamCity={team.seasons[selectedSeasonStr].city}
+                  owner={team.seasons[selectedSeasonStr].owner}
+                  wins={team.seasons[selectedSeasonStr].wins}
+                  ties={team.seasons[selectedSeasonStr].ties}
+                  losses={team.seasons[selectedSeasonStr].losses}
+                  place={1}
+                />
+              )
+          )}
+
+          {/* Test teams */}
           <TeamListItem
             teamName="Wienerschnitzel"
             teamCity="San Diego"
@@ -90,174 +122,6 @@ export default function CreditCards() {
             place={2}
             teamID={2}
           />
-
-          {/* Card 1 */}
-          <label className="relative block cursor-pointer text-left w-full">
-            <input
-              type="radio"
-              name="radio-buttons"
-              className="peer sr-only"
-              defaultChecked
-            />
-            <div className="p-4 rounded dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
-              <div className="grid grid-cols-12 items-center gap-x-2">
-                {/* Card */}
-                <div className="col-span-6 order-1 sm:order-none sm:col-span-3 flex items-center space-x-4 lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-3">
-                  <svg
-                    className="shrink-0"
-                    width="32"
-                    height="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <linearGradient
-                        x1="1.829%"
-                        y1="100%"
-                        x2="100%"
-                        y2="2.925%"
-                        id="c1-a"
-                      >
-                        <stop stopColor="#475569" offset="0%" />
-                        <stop stopColor="#1E293B" offset="100%" />
-                        <stop stopColor="#9FA1FF" offset="100%" />
-                      </linearGradient>
-                    </defs>
-                    <g fill="none" fillRule="evenodd">
-                      <rect fill="url(#c1-a)" width="32" height="24" rx="3" />
-                      <ellipse
-                        fill="#E61C24"
-                        fillRule="nonzero"
-                        cx="12.522"
-                        cy="12"
-                        rx="5.565"
-                        ry="5.647"
-                      />
-                      <ellipse
-                        fill="#F99F1B"
-                        fillRule="nonzero"
-                        cx="19.432"
-                        cy="12"
-                        rx="5.565"
-                        ry="5.647"
-                      />
-                      <path
-                        d="M15.977 7.578A5.667 5.667 0 0 0 13.867 12c0 1.724.777 3.353 2.11 4.422A5.667 5.667 0 0 0 18.087 12a5.667 5.667 0 0 0-2.11-4.422Z"
-                        fill="#F26622"
-                        fillRule="nonzero"
-                      />
-                    </g>
-                  </svg>
-                  <div>
-                    <div className="text-sm font-medium text-slate-800 dark:text-slate-100">
-                      _Metal
-                    </div>
-                    <div className="text-xs">**7328</div>
-                  </div>
-                </div>
-                {/* Name */}
-                <div className="col-span-6 order-2 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-                  <div className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate">
-                    Dominik Lamakani
-                  </div>
-                </div>
-                {/* Card limits */}
-                <div className="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">
-                  <div className="text-sm">$780,00 / $20,000</div>
-                </div>
-                {/* Card status */}
-                <div className="col-span-6 order-2 sm:order-none sm:col-span-2 text-right lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-                  <div className="text-xs inline-flex font-medium bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400 rounded-full text-center px-2.5 py-1">
-                    Active
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 dark:peer-checked:border-indigo-500 rounded pointer-events-none"
-              aria-hidden="true"
-            />
-          </label>
-          {/* Card 2 */}
-          <label className="relative block cursor-pointer text-left w-full">
-            <input type="radio" name="radio-buttons" className="peer sr-only" />
-            <div className="p-4 rounded dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
-              <div className="grid grid-cols-12 items-center gap-x-2">
-                {/* Card */}
-                <div className="col-span-6 order-1 sm:order-none sm:col-span-3 flex items-center space-x-4 lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-3">
-                  <svg
-                    className="shrink-0"
-                    width="32"
-                    height="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <linearGradient
-                        x1="1.829%"
-                        y1="100%"
-                        x2="100%"
-                        y2="2.925%"
-                        id="c2a"
-                      >
-                        <stop stopColor="#6366F1" offset="0%" />
-                        <stop stopColor="#9FA1FF" offset="100%" />
-                        <stop stopColor="#9FA1FF" offset="100%" />
-                      </linearGradient>
-                    </defs>
-                    <g fill="none" fillRule="evenodd">
-                      <rect fill="url(#c2a)" width="32" height="24" rx="3" />
-                      <ellipse
-                        fill="#E61C24"
-                        fillRule="nonzero"
-                        cx="12.522"
-                        cy="12"
-                        rx="5.565"
-                        ry="5.647"
-                      />
-                      <ellipse
-                        fill="#F99F1B"
-                        fillRule="nonzero"
-                        cx="19.432"
-                        cy="12"
-                        rx="5.565"
-                        ry="5.647"
-                      />
-                      <path
-                        d="M15.977 7.578A5.667 5.667 0 0 0 13.867 12c0 1.724.777 3.353 2.11 4.422A5.667 5.667 0 0 0 18.087 12a5.667 5.667 0 0 0-2.11-4.422Z"
-                        fill="#F26622"
-                        fillRule="nonzero"
-                      />
-                    </g>
-                  </svg>
-                  <div>
-                    <div className="text-sm font-medium text-slate-800 dark:text-slate-100">
-                      _Virtual
-                    </div>
-                    <div className="text-xs">**7377</div>
-                  </div>
-                </div>
-                {/* Name */}
-                <div className="col-span-6 order-2 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-                  <div className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate">
-                    Dominik Lamakani
-                  </div>
-                </div>
-                {/* Card limits */}
-                <div className="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">
-                  <div className="text-sm">$0 / $20,000</div>
-                </div>
-                {/* Card status */}
-                <div className="col-span-6 order-2 sm:order-none sm:col-span-2 text-right lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-                  <div className="text-xs inline-flex font-medium bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400 rounded-full text-center px-2.5 py-1">
-                    Blocked
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 dark:peer-checked:border-indigo-500 rounded pointer-events-none"
-              aria-hidden="true"
-            />
-          </label>
         </div>
       </div>
 
