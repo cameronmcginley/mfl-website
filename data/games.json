@@ -1,9 +1,11 @@
 [
   {
-    "id": "1",
+    "id": "123",
+    "week": 1,
     "home_team_id": 1,
     "away_team_id": 2,
     "home_team_score": 2,
-    "away_team_score": 1
+    "away_team_score": 1,
+    "winner_team_id": 1
   }
 ]

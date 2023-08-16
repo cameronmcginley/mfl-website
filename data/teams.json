@@ -18,7 +18,8 @@
         "name_id": "examples",
         "owner": "John Doe",
         "name": "Examples",
-        "city": "New York"
+        "city": "New York",
+        "games": ["123"]
       },
       "2016": {
         "wins": 10,
@@ -27,7 +28,42 @@
         "name_id": "examples2",
         "owner": "John Doe2",
         "name": "Examples2",
-        "city": "New 2York"
+        "city": "New 2York",
+        "games": ["123", "456", "789", "101112", "12"]
+      }
+    }
+  },
+  {
+    "id": 2,
+    "current_name_id": "examples2",
+    "current_owner": "Nerd3",
+    "current_name": "Examples2",
+    "current_city": "New York2",
+    "all_time": {
+      "wins": 10,
+      "losses": 5,
+      "ties": 2
+    },
+    "seasons": {
+      "2015": {
+        "wins": 2,
+        "losses": 8,
+        "ties": 2,
+        "name_id": "examples2",
+        "owner": "Nerd1",
+        "name": "Exa2mples",
+        "city": "New Yo2rk",
+        "games": ["123"]
+      },
+      "2016": {
+        "wins": 10,
+        "losses": 5,
+        "ties": 2,
+        "name_id": "examples2",
+        "owner": "Nerd2",
+        "name": "Examples2",
+        "city": "New 2York",
+        "games": ["123"]
       }
     }
   }

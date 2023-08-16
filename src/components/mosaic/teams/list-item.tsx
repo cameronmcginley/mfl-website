@@ -23,7 +23,8 @@ export default function TeamListItem(props: TeamListItemProps): JSX.Element {
         type="radio"
         name="radio-buttons"
         className="peer sr-only"
-        defaultChecked
+        // defaultChecked
+        onChange={() => props.onChange(props.teamID)}
       />
       <div className="p-4 rounded dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm duration-150 ease-in-out">
         <div className="grid grid-cols-12 items-center gap-x-2">
