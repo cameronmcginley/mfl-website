@@ -6,6 +6,7 @@ import { useSelectedLayoutSegments } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { getBreakpoint } from "../utils/utils";
 import Logo from "./logo";
+import SidebarButton from "./sidebar-button";
 import SidebarLink from "./sidebar-link";
 import SidebarLinkGroup from "./sidebar-link-group";
 
@@ -89,7 +90,9 @@ export default function Sidebar() {
           {/* Close button */}
           <button
             className="lg:hidden text-slate-500 hover:text-slate-400"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
+            onClick={() => {
+              setSidebarOpen(!sidebarOpen);
+            }}
             aria-controls="sidebar"
             aria-expanded={sidebarOpen}
           >
@@ -789,101 +792,21 @@ export default function Sidebar() {
                 </SidebarLink>
               </li>
               {/* Inbox */}
-              <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  segments.includes("inbox") && "bg-slate-900"
-                }`}
-              >
-                <SidebarLink href="/inbox">
-                  <div className="flex items-center">
-                    <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path
-                        className={`fill-current ${
-                          segments.includes("inbox")
-                            ? "text-indigo-500"
-                            : "text-slate-600"
-                        }`}
-                        d="M16 13v4H8v-4H0l3-9h18l3 9h-8Z"
-                      />
-                      <path
-                        className={`fill-current ${
-                          segments.includes("inbox")
-                            ? "text-indigo-300"
-                            : "text-slate-400"
-                        }`}
-                        d="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z"
-                      />
-                    </svg>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      Inbox
-                    </span>
-                  </div>
-                </SidebarLink>
-              </li>
+              <SidebarButton
+                title="Inbox"
+                id="inbox"
+                url="/inbox"
+                svgpath1="M16 13v4H8v-4H0l3-9h18l3 9h-8Z"
+                svgpath2="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z"
+              />
               {/* Calendar */}
-              <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  segments.includes("calendar") && "bg-slate-900"
-                }`}
-              >
-                <SidebarLink href="/calendar">
-                  <div className="flex items-center">
-                    <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path
-                        className={`fill-current ${
-                          segments.includes("calendar")
-                            ? "text-indigo-500"
-                            : "text-slate-600"
-                        }`}
-                        d="M1 3h22v20H1z"
-                      />
-                      <path
-                        className={`fill-current ${
-                          segments.includes("calendar")
-                            ? "text-indigo-300"
-                            : "text-slate-400"
-                        }`}
-                        d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
-                      />
-                    </svg>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      Calendar
-                    </span>
-                  </div>
-                </SidebarLink>
-              </li>
-              {/* Campaigns */}
-              <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  segments.includes("campaigns") && "bg-slate-900"
-                }`}
-              >
-                <SidebarLink href="/campaigns">
-                  <div className="flex items-center">
-                    <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path
-                        className={`fill-current ${
-                          segments.includes("campaigns")
-                            ? "text-indigo-500"
-                            : "text-slate-600"
-                        }`}
-                        d="M20 7a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 0120 7zM4 23a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 014 23z"
-                      />
-                      <path
-                        className={`fill-current ${
-                          segments.includes("campaigns")
-                            ? "text-indigo-300"
-                            : "text-slate-400"
-                        }`}
-                        d="M17 23a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 010-2 4 4 0 004-4 1 1 0 012 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1zM7 13a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 110-2 4 4 0 004-4 1 1 0 112 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1z"
-                      />
-                    </svg>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      Campaigns
-                    </span>
-                  </div>
-                </SidebarLink>
-              </li>
+              <SidebarButton
+                title="Calendar"
+                id="calendar"
+                url="/calendar"
+                svgpath1="M1 3h22v20H1z"
+                svgpath2="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
+              />
               {/* Settings */}
               <SidebarLinkGroup open={segments.includes("settings")}>
                 {(handleClick, open) => {
