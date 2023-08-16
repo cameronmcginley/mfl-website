@@ -796,16 +796,37 @@ export default function Sidebar() {
                 title="Inbox"
                 id="inbox"
                 url="/inbox"
-                svgpath1="M16 13v4H8v-4H0l3-9h18l3 9h-8Z"
-                svgpath2="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z"
+                svgpaths={[
+                  {
+                    svgpath: "M16 13v4H8v-4H0l3-9h18l3 9h-8Z",
+                    colorLight: "text-indigo-500",
+                    colorDark: "text-slate-600",
+                  },
+                  {
+                    svgpath:
+                      "m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z",
+                    colorLight: "text-indigo-300",
+                    colorDark: "text-slate-400",
+                  },
+                ]}
               />
               {/* Calendar */}
               <SidebarButton
                 title="Calendar"
                 id="calendar"
                 url="/calendar"
-                svgpath1="M1 3h22v20H1z"
-                svgpath2="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
+                svgpaths={[
+                  {
+                    svgpath: "M1 3h22v20H1z",
+                    colorLight: "text-indigo-500",
+                    colorDark: "text-slate-600",
+                  },
+                  {
+                    svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
+                    colorLight: "text-indigo-300",
+                    colorDark: "text-slate-400",
+                  },
+                ]}
               />
               {/* Settings */}
               <SidebarLinkGroup open={segments.includes("settings")}>

@@ -2,8 +2,7 @@ import { useSelectedLayoutSegments } from "next/navigation";
 
 interface SVGContainerProps {
   id: string;
-  svgpath1: string;
-  svgpath2: string;
+  svgpaths: Array<{ svgpath: string; colorLight: string; colorDark: string }>;
 }
 
 export default function SVGContainer(props: SVGContainerProps): JSX.Element {
@@ -12,19 +11,16 @@ export default function SVGContainer(props: SVGContainerProps): JSX.Element {
 
   return (
     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-      <path
-        className={`fill-current ${
-          segments.includes(props.id) ? "text-indigo-500" : "text-slate-600"
-        }`}
-        // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d
-        d={props.svgpath1}
-      />
-      <path
-        className={`fill-current ${
-          segments.includes(props.id) ? "text-indigo-300" : "text-slate-400"
-        }`}
-        d={props.svgpath2}
-      />
+      {/* Map svgpaths to svg component */}
+      {props.svgpaths.map((svgpath, index) => (
+        <path
+          key={index}
+          className={`fill-current ${
+            segments.includes(props.id) ? svgpath.colorLight : svgpath.colorDark
+          }`}
+          d={svgpath.svgpath}
+        />
+      ))}
     </svg>
   );
 }
