@@ -1,5 +1,4 @@
-import Logo from "@/components/mosaic/ui/logo";
-import React from "react";
+import Logo from "@/src/components/mosaic/ui/logo";
 
 export default function AuthHeader(): JSX.Element {
   return (

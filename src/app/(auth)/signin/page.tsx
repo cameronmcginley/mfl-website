@@ -1,9 +1,9 @@
 "use client";
 
+import { auth } from "@/src/firebase/config";
 import { GoogleAuthProvider } from "firebase/auth";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
-import { auth } from "../../../firebase/config";
 import AuthHeader from "../auth-header";
 
 export const metadata = {
