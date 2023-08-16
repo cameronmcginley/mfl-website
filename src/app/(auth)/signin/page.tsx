@@ -1,23 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import AuthHeader from "../auth-header";
-// import AuthImage from "../auth-image";
-
-// import Image from "next/image";
-import React from "react";
-
-import { auth } from "../../../firebase/config";
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
-
-// import firebase from "firebase/compat/app";
+import { GoogleAuthProvider } from "firebase/auth";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
+import { auth } from "../../../firebase/config";
+import AuthHeader from "../auth-header";
 
 export const metadata = {
   title: "Sign In - Mosaic",
@@ -25,25 +12,37 @@ export const metadata = {
 };
 
 export default function SignIn(): JSX.Element {
+  const redirectUrl = "/";
+  const signInText = "Sign in to your account";
+
   // https://firebase.google.com/docs/auth/web/firebaseui?hl=en&authuser=0
+  // https://github.com/firebase/firebaseui-web
   const ui = new firebaseui.auth.AuthUI(auth);
+
   const uiConfig = {
     callbacks: {
-      signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      signInSuccessWithAuthResult: function (
+        authResult: firebaseui.auth.AuthResult,
+        redirectUrl: string
+      ) {
         // User successfully signed in.
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
         return true;
       },
       uiShown: function () {
-        // The widget is rendered.
-        // Hide the loader.
-        document.getElementById("loader").style.display = "none";
+        // The widget is rendered, hide loading bar
+        const loaderElement = document.getElementById("loader");
+        if (loaderElement != null) {
+          loaderElement.style.display = "none";
+        } else {
+          console.error("Loader element not found");
+        }
       },
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
     signInFlow: "popup",
-    signInSuccessUrl: "/",
+    signInSuccessUrl: redirectUrl,
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       GoogleAuthProvider.PROVIDER_ID,
@@ -60,13 +59,14 @@ export default function SignIn(): JSX.Element {
         {/* Content */}
         <div className="md:w-1/2">
           <div className="min-h-[100dvh] h-full flex flex-col after:flex-1">
+            {/* Header */}
             <AuthHeader />
 
             {/* Sign in box */}
             <div className="max-w-sm mx-auto w-full px-4 py-8">
               {/* Title */}
               <h1 className="text-center text-3xl text-slate-800 dark:text-slate-100 font-bold mb-6">
-                Sign in using a method below
+                {signInText}
               </h1>
 
               {/* Form */}
