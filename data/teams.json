@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name_id": "examples",
+    "owner": "John Doe",
+    "name": "Examples",
+    "city": "New York",
+    "all_time": {
+      "wins": 10,
+      "losses": 5,
+      "ties": 2
+    },
+    "seasons": {
+      "2015": {
+        "wins": 2,
+        "losses": 8,
+        "ties": 2
+      },
+      "2016": {
+        "wins": 10,
+        "losses": 5,
+        "ties": 2
+      }
+    }
+  }
+]

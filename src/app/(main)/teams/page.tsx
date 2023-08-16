@@ -1,9 +1,34 @@
+"use client";
+
+import Dropdown from "@/src/components/mosaic/dropdown";
+import TeamListHeader from "@/src/components/mosaic/teams/list-header";
+import TeamListItem from "@/src/components/mosaic/teams/list-item";
+import { useEffect, useState } from "react";
+
 export const metadata = {
   title: "Credit Cards - Mosaic",
   description: "Page description",
 };
 
 export default function CreditCards() {
+  // Get seasons from database
+  const [selectedSeason, setSelectedSeason] = useState<number>(0);
+  const seasonOptions = {
+    0: "2022-2023",
+    1: "2021-2022",
+  };
+
+  // Convert season options to array of maps
+  const seasonOptionsSeperate = Object.keys(seasonOptions).map((key) => ({
+    id: key,
+    text: seasonOptions[key],
+  }));
+
+  // Print everytime selectedSeason upodates
+  useEffect(() => {
+    console.log("You selected: ", seasonOptions[selectedSeason]);
+  }, [selectedSeason]);
+
   return (
     <div className="lg:relative lg:flex bg-white dark:bg-slate-900">
       {/* Content */}
@@ -13,7 +38,7 @@ export default function CreditCards() {
           {/* Left: Title */}
           <div className="mb-4 sm:mb-0">
             <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">
-              Cards ✨
+              Teams
             </h1>
           </div>
 
@@ -29,29 +54,43 @@ export default function CreditCards() {
           </button>
         </div>
 
-        {/* Filters */}
-        <div className="mb-5">
-          <ul className="flex flex-wrap -m-1">
-            <li className="m-1">
-              <button className="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">
-                View All
-              </button>
-            </li>
-            <li className="m-1">
-              <button className="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">
-                Physical Cards
-              </button>
-            </li>
-            <li className="m-1">
-              <button className="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">
-                Virtual Cards
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* Credit cards */}
+        {/* List */}
         <div className="space-y-2">
+          {/* Season Dropdown */}
+          <div>
+            <Dropdown
+              options={seasonOptionsSeperate}
+              onUpdate={(option) => {
+                setSelectedSeason(option);
+              }}
+              selected={selectedSeason}
+            />
+          </div>
+
+          <TeamListHeader />
+
+          <TeamListItem
+            teamName="Wienerschnitzel"
+            teamCity="San Diego"
+            owner="Cameron McGinley"
+            wins={13}
+            ties={0}
+            losses={1}
+            place={1}
+            teamID={1}
+          />
+
+          <TeamListItem
+            teamName="Test"
+            teamCity="Wichita"
+            owner="OwnerName"
+            wins={2}
+            ties={1}
+            losses={11}
+            place={2}
+            teamID={2}
+          />
+
           {/* Card 1 */}
           <label className="relative block cursor-pointer text-left w-full">
             <input
@@ -138,7 +177,6 @@ export default function CreditCards() {
               aria-hidden="true"
             />
           </label>
-
           {/* Card 2 */}
           <label className="relative block cursor-pointer text-left w-full">
             <input type="radio" name="radio-buttons" className="peer sr-only" />

@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { getBreakpoint } from "../../utils/utils";
 import Logo from "./../logo";
 import SidebarButton from "./sidebar-button";
-import SidebarButtonGroup from "./sidebar-button-group";
+import SidebarDropdown from "./sidebar-dropdown";
+import SidebarGroup from "./sidebar-group";
 
 export default function Sidebar() {
   const sidebar = useRef<HTMLDivElement>(null);
@@ -110,145 +111,123 @@ export default function Sidebar() {
 
         {/* Links */}
         <div className="space-y-8">
-          {/* Group 1 */}
-          <div>
-            <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
-              <span
-                className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6"
-                aria-hidden="true"
-              >
-                •••
-              </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                Group 1
-              </span>
-            </h3>
-            <ul className="mt-3">
-              {/* E-Commerce */}
-              <SidebarButtonGroup
-                id="ecommerce"
-                title="E-commerce"
-                url="/ecommerce"
-                svgpaths={[
-                  {
-                    svgpath:
-                      "M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z",
-                    colorLight: "text-indigo-300",
-                    colorDark: "text-slate-400",
-                  },
-                  {
-                    svgpath: "M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z",
-                    colorLight: "text-indigo-600",
-                    colorDark: "text-slate-700",
-                  },
-                  {
-                    svgpath:
-                      "M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z",
-                    colorLight: "text-indigo-500",
-                    colorDark: "text-slate-600",
-                  },
-                ]}
-                subpaths={[
-                  { title: "Main", url: "/ecommerce" },
-                  { title: "Analytics", url: "/ecommerce/analytics" },
-                ]}
-                expandOnly={expandOnly}
-                setSidebarExpanded={setSidebarExpanded}
-              />
+          <SidebarGroup title="Group 1">
+            {/* E-Commerce */}
+            <SidebarDropdown
+              id="ecommerce"
+              title="E-commerce"
+              url="/ecommerce"
+              svgpaths={[
+                {
+                  svgpath:
+                    "M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z",
+                  colorLight: "text-indigo-300",
+                  colorDark: "text-slate-400",
+                },
+                {
+                  svgpath: "M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z",
+                  colorLight: "text-indigo-600",
+                  colorDark: "text-slate-700",
+                },
+                {
+                  svgpath:
+                    "M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z",
+                  colorLight: "text-indigo-500",
+                  colorDark: "text-slate-600",
+                },
+              ]}
+              subpaths={[
+                { title: "Main", url: "/ecommerce" },
+                { title: "Analytics", url: "/ecommerce/analytics" },
+              ]}
+              expandOnly={expandOnly}
+              setSidebarExpanded={setSidebarExpanded}
+            />
 
-              {/* Inbox */}
-              <SidebarButton
-                title="Inbox"
-                id="inbox"
-                url="/inbox"
-                svgpaths={[
-                  {
-                    svgpath: "M16 13v4H8v-4H0l3-9h18l3 9h-8Z",
-                    colorLight: "text-indigo-500",
-                    colorDark: "text-slate-600",
-                  },
-                  {
-                    svgpath:
-                      "m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z",
-                    colorLight: "text-indigo-300",
-                    colorDark: "text-slate-400",
-                  },
-                ]}
-              />
+            {/* Inbox */}
+            <SidebarButton
+              title="Inbox"
+              id="inbox"
+              url="/inbox"
+              svgpaths={[
+                {
+                  svgpath: "M16 13v4H8v-4H0l3-9h18l3 9h-8Z",
+                  colorLight: "text-indigo-500",
+                  colorDark: "text-slate-600",
+                },
+                {
+                  svgpath:
+                    "m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z",
+                  colorLight: "text-indigo-300",
+                  colorDark: "text-slate-400",
+                },
+              ]}
+            />
 
-              {/* Calendar */}
-              <SidebarButton
-                title="Calendar"
-                id="calendar"
-                url="/calendar"
-                svgpaths={[
-                  {
-                    svgpath: "M1 3h22v20H1z",
-                    colorLight: "text-indigo-500",
-                    colorDark: "text-slate-600",
-                  },
-                  {
-                    svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
-                    colorLight: "text-indigo-300",
-                    colorDark: "text-slate-400",
-                  },
-                ]}
-              />
+            {/* Calendar */}
+            <SidebarButton
+              title="Calendar"
+              id="calendar"
+              url="/calendar"
+              svgpaths={[
+                {
+                  svgpath: "M1 3h22v20H1z",
+                  colorLight: "text-indigo-500",
+                  colorDark: "text-slate-600",
+                },
+                {
+                  svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
+                  colorLight: "text-indigo-300",
+                  colorDark: "text-slate-400",
+                },
+              ]}
+            />
 
-              {/* Card */}
-              <SidebarButton
-                title="Cards"
-                id="cards"
-                url="/cards"
-                svgpaths={[
-                  {
-                    svgpath: "M1 3h22v20H1z",
-                    colorLight: "text-indigo-500",
-                    colorDark: "text-slate-600",
-                  },
-                  {
-                    svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
-                    colorLight: "text-indigo-300",
-                    colorDark: "text-slate-400",
-                  },
-                ]}
-              />
-            </ul>
-          </div>
-          {/* Group 2 */}
-          <div>
-            <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
-              <span
-                className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6"
-                aria-hidden="true"
-              >
-                •••
-              </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                Group 2
-              </span>
-            </h3>
-            <ul className="mt-3">
-              {/* Card */}
-              <SidebarButton
-                title="Cards"
-                id="cards"
-                url="/cards"
-                svgpaths={[
-                  {
-                    svgpath: "M1 3h22v20H1z",
-                    colorLight: "text-indigo-500",
-                    colorDark: "text-slate-600",
-                  },
-                  {
-                    svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
-                    colorLight: "text-indigo-300",
-                    colorDark: "text-slate-400",
-                  },
-                ]}
-              />
-            </ul>
-          </div>
+            {/* Teams */}
+            <SidebarDropdown
+              id="teams"
+              title="Teams"
+              url="/teams"
+              svgpaths={[
+                {
+                  svgpath: "M1 3h22v20H1z",
+                  colorLight: "text-indigo-500",
+                  colorDark: "text-slate-600",
+                },
+                {
+                  svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
+                  colorLight: "text-indigo-300",
+                  colorDark: "text-slate-400",
+                },
+              ]}
+              subpaths={[
+                { title: "All Teams", url: "/teams" },
+                { title: "Wienerschnitzel", url: "/teams/wienerschnitzel" },
+              ]}
+              expandOnly={expandOnly}
+              setSidebarExpanded={setSidebarExpanded}
+            />
+          </SidebarGroup>
+          <SidebarGroup title="Group 2">
+            {/* Card */}
+            <SidebarButton
+              title="Cards"
+              id="cards"
+              url="/cards"
+              svgpaths={[
+                {
+                  svgpath: "M1 3h22v20H1z",
+                  colorLight: "text-indigo-500",
+                  colorDark: "text-slate-600",
+                },
+                {
+                  svgpath: "M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z",
+                  colorLight: "text-indigo-300",
+                  colorDark: "text-slate-400",
+                },
+              ]}
+            />
+          </SidebarGroup>
         </div>
 
         {/* Expand / collapse button */}
