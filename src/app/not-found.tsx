@@ -1,7 +1,7 @@
 import NotFoundImageDark from "@/public/images/404-illustration-dark.svg";
 import NotFoundImage from "@/public/images/404-illustration.svg";
 import Header from "@/src/components/mosaic/ui/header";
-import Sidebar from "@/src/components/mosaic/ui/sidebar";
+import Sidebar from "@/src/components/mosaic/ui/sidebar/sidebar";
 import Image from "next/image";
 import Link from "next/link";
 

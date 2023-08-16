@@ -1,8 +1,8 @@
 import { useSelectedLayoutSegments } from "next/navigation";
+import DropdownIcon from "../svgs/dropdown";
+import SVGContainer from "../svgs/svg-container";
 import SidebarLink from "./sidebar-link";
 import SidebarLinkGroup from "./sidebar-link-group";
-import DropdownIcon from "./svgs/dropdown";
-import SVGContainer from "./svgs/svg-container";
 
 interface SidebarButtonGroupProps {
   title: string;

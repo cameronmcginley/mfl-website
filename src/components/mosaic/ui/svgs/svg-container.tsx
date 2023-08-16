@@ -8,6 +8,7 @@ interface SVGContainerProps {
 export default function SVGContainer(props: SVGContainerProps): JSX.Element {
   // Get segment for light/dark mode
   const segments = useSelectedLayoutSegments();
+  // console.log(segments);
 
   return (
     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">

@@ -1,6 +1,6 @@
 import { useSelectedLayoutSegments } from "next/navigation";
+import SVGContainer from "../svgs/svg-container";
 import SidebarLink from "./sidebar-link";
-import SVGContainer from "./svgs/svg-container";
 
 interface SidebarButtonProps {
   title: string;

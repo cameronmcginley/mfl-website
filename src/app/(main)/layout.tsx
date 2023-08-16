@@ -1,5 +1,5 @@
 import Header from "@/src/components/mosaic/ui/header";
-import Sidebar from "@/src/components/mosaic/ui/sidebar";
+import Sidebar from "@/src/components/mosaic/ui/sidebar/sidebar";
 
 export default function DefaultLayout({
   children,
