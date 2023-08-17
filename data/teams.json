@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "current_name_id": "examples",
+    "name_id": "examples",
     "current_owner": "John Doe",
     "current_name": "Examples",
     "current_city": "New York",
@@ -15,7 +15,6 @@
         "wins": 2,
         "losses": 8,
         "ties": 2,
-        "name_id": "examples",
         "owner": "John Doe",
         "name": "Examples",
         "city": "New York",
@@ -25,7 +24,6 @@
         "wins": 10,
         "losses": 5,
         "ties": 2,
-        "name_id": "examples2",
         "owner": "John Doe2",
         "name": "Examples2",
         "city": "New 2York",

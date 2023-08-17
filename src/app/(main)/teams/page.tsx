@@ -110,29 +110,6 @@ export default function CreditCards() {
                 />
               )
           )}
-
-          {/* Test teams */}
-          <TeamListItem
-            teamName="Wienerschnitzel"
-            teamCity="San Diego"
-            owner="Cameron McGinley"
-            wins={13}
-            ties={0}
-            losses={1}
-            place={1}
-            teamID={1}
-          />
-
-          <TeamListItem
-            teamName="Test"
-            teamCity="Wichita"
-            owner="OwnerName"
-            wins={2}
-            ties={1}
-            losses={11}
-            place={2}
-            teamID={2}
-          />
         </div>
       </div>
 

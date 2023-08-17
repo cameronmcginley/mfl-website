@@ -7,5 +7,23 @@
     "home_team_score": 2,
     "away_team_score": 1,
     "winner_team_id": 1
+  },
+  {
+    "id": "456",
+    "week": 2,
+    "home_team_id": 1,
+    "away_team_id": 2,
+    "home_team_score": 2,
+    "away_team_score": 1,
+    "winner_team_id": 2
+  },
+  {
+    "id": "789",
+    "week": 3,
+    "home_team_id": 1,
+    "away_team_id": 2,
+    "home_team_score": 2,
+    "away_team_score": 1,
+    "winner_team_id": 1
   }
 ]
