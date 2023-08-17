@@ -6,6 +6,7 @@ import Dropdown from "@/src/components/mosaic/dropdown";
 import TeamListHeader from "@/src/components/mosaic/teams/list-header";
 import TeamListItem from "@/src/components/mosaic/teams/list-item";
 import Sidecard from "@/src/components/mosaic/teams/sidecard";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const metadata = {
@@ -42,6 +43,19 @@ export default function CreditCards() {
     setSideCardOpen(true);
     setSelectedTeamID(newTeamID);
   };
+
+  // Get current league id using segment
+  const router = useRouter();
+  const leagueID = router.query.leagueID;
+  console.log(leagueID);
+
+  // From team data, get teams that match: selected season, league id from url
+  const filteredTeams = teamsData.filter((team) => {
+    return (
+      team.seasons.hasOwnProperty(selectedSeasonStr) &&
+      team.seasons[selectedSeasonStr].league_id === 1
+    );
+  });
 
   // Print everytime selectedSeasonID upodates (this num is returned by dropdown)
   useEffect(() => {
