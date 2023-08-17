@@ -2,6 +2,7 @@
   {
     "id": 1,
     "name_id": "examples",
+    "league_id": "1",
     "current_owner": "John Doe",
     "current_name": "Examples",
     "current_city": "New York",
@@ -33,7 +34,8 @@
   },
   {
     "id": 2,
-    "current_name_id": "examples2",
+    "name_id": "examples2",
+    "league_id": "1",
     "current_owner": "Nerd3",
     "current_name": "Examples2",
     "current_city": "New York2",

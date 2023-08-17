@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 export default function SignIn(): JSX.Element {
-  const redirectUrl = "/teams";
+  const redirectUrl = "/home";
   const signInText = "Sign in to your account";
 
   // https://firebase.google.com/docs/auth/web/firebaseui?hl=en&authuser=0
