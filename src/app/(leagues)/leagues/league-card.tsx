@@ -22,7 +22,7 @@ export default function LeagueCard(props: LeagueCardProps): JSX.Element {
     <div className="col-span-full sm:col-span-6 xl:col-span-3 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <div className="flex flex-col h-full">
         {/* Card top */}
-        <Link href={"/league/" + props.league.id}>
+        <Link href={"/leagues/" + props.league.id + "/home"}>
           <div className="grow p-5 hover:dark:bg-slate-700 hover:bg-slate-100">
             <header>
               {/* Image */}

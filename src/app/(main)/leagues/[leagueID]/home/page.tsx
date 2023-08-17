@@ -6,7 +6,7 @@ import Dropdown from "@/src/components/mosaic/dropdown";
 import TeamListHeader from "@/src/components/mosaic/teams/list-header";
 import TeamListItem from "@/src/components/mosaic/teams/list-item";
 import Sidecard from "@/src/components/mosaic/teams/sidecard";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const metadata = {
@@ -14,12 +14,18 @@ export const metadata = {
   description: "Page description",
 };
 
-export default function CreditCards() {
-  // Get seasons from database
+export default function Teams(): JSX.Element {
   const [selectedSeasonID, setselectedSeasonID] = useState<number>(0);
   const [selectedSeasonStr, setselectedSeasonStr] = useState<string>();
   const [sideCardOpen, setSideCardOpen] = useState<boolean>(false);
   const [selectedTeamID, setSelectedTeamID] = useState<number>();
+  const [leagueID, setleagueID] = useState<string>("");
+
+  // Get League ID from URL
+  const params = useParams();
+  useEffect(() => {
+    setleagueID(params.leagueID);
+  }, [params]);
 
   // seasonsData is array of strings eg ["2015", "2016"], sort greatest to least
   seasonsData.sort((a, b) => Number(b) - Number(a));
@@ -44,18 +50,20 @@ export default function CreditCards() {
     setSelectedTeamID(newTeamID);
   };
 
-  // Get current league id using segment
-  const router = useRouter();
-  const leagueID = router.query.leagueID;
-  console.log(leagueID);
-
   // From team data, get teams that match: selected season, league id from url
-  const filteredTeams = teamsData.filter((team) => {
-    return (
-      team.seasons.hasOwnProperty(selectedSeasonStr) &&
-      team.seasons[selectedSeasonStr].league_id === 1
+  const [filteredTeams, setFilteredTeams] = useState([]);
+  useEffect(() => {
+    console.log("Gi", leagueID);
+    setFilteredTeams(
+      teamsData.filter((team) => {
+        console.log("yo", selectedSeasonStr);
+        return (
+          team.seasons.hasOwnProperty(selectedSeasonStr) &&
+          team.league_id === leagueID
+        );
+      })
     );
-  });
+  }, [selectedSeasonStr, leagueID]);
 
   // Print everytime selectedSeasonID upodates (this num is returned by dropdown)
   useEffect(() => {
@@ -105,25 +113,24 @@ export default function CreditCards() {
           <TeamListHeader />
 
           {/* Map teams to list */}
-          {teamsData.map(
-            (team) =>
-              // Only include if it has values for the selected year
-              team.seasons.hasOwnProperty(selectedSeasonStr) && (
-                <TeamListItem
-                  key={team.id}
-                  teamID={team.id}
-                  teamURL={team.current_name_id}
-                  teamName={team.seasons[selectedSeasonStr].name}
-                  teamCity={team.seasons[selectedSeasonStr].city}
-                  owner={team.seasons[selectedSeasonStr].owner}
-                  wins={team.seasons[selectedSeasonStr].wins}
-                  ties={team.seasons[selectedSeasonStr].ties}
-                  losses={team.seasons[selectedSeasonStr].losses}
-                  place={1}
-                  onChange={handleClick}
-                />
-              )
-          )}
+          {
+            // Check for filteredTeams empty first
+            filteredTeams.map((team) => (
+              <TeamListItem
+                key={team.id}
+                teamID={team.id}
+                teamURL={team.current_name_id}
+                teamName={team.seasons[selectedSeasonStr].name}
+                teamCity={team.seasons[selectedSeasonStr].city}
+                owner={team.seasons[selectedSeasonStr].owner}
+                wins={team.seasons[selectedSeasonStr].wins}
+                ties={team.seasons[selectedSeasonStr].ties}
+                losses={team.seasons[selectedSeasonStr].losses}
+                place={1}
+                onChange={handleClick}
+              />
+            ))
+          }
         </div>
       </div>
 

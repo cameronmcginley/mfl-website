@@ -14,14 +14,18 @@ export const metadata = {
   description: "Page description",
 };
 
-export default function CreditCards() {
+export default function Teams(): JSX.Element {
   const [selectedSeasonID, setselectedSeasonID] = useState<number>(0);
   const [selectedSeasonStr, setselectedSeasonStr] = useState<string>();
   const [sideCardOpen, setSideCardOpen] = useState<boolean>(false);
   const [selectedTeamID, setSelectedTeamID] = useState<number>();
   const [leagueID, setleagueID] = useState<string>("");
 
+  // Get League ID from URL
   const params = useParams();
+  useEffect(() => {
+    setleagueID(params.leagueID);
+  }, [params]);
 
   // seasonsData is array of strings eg ["2015", "2016"], sort greatest to least
   seasonsData.sort((a, b) => Number(b) - Number(a));
@@ -45,11 +49,6 @@ export default function CreditCards() {
     setSideCardOpen(true);
     setSelectedTeamID(newTeamID);
   };
-
-  // https://nextjs.org/docs/app/api-reference/functions/use-params
-  useEffect(() => {
-    setleagueID(params.leagueID);
-  }, [params]);
 
   // From team data, get teams that match: selected season, league id from url
   const [filteredTeams, setFilteredTeams] = useState([]);

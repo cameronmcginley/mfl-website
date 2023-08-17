@@ -2,7 +2,7 @@
 
 import { useAppProvider } from "@/src/app/app-provider";
 import { Transition } from "@headlessui/react";
-import { useSelectedLayoutSegments } from "next/navigation";
+import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { getBreakpoint } from "../../utils/utils";
 import Logo from "./../logo";
@@ -18,6 +18,16 @@ export default function Sidebar() {
   const [breakpoint, setBreakpoint] = useState<string | undefined>(
     getBreakpoint()
   );
+  const [leagueID, setleagueID] = useState<string>("");
+
+  // Get League ID from URL
+  const params = useParams();
+  useEffect(() => {
+    setleagueID(params.leagueID);
+  }, [params]);
+
+  const baseURL = "/leagues/" + leagueID + "/";
+
   const expandOnly =
     !sidebarExpanded && (breakpoint === "lg" || breakpoint === "xl");
 
@@ -132,43 +142,11 @@ export default function Sidebar() {
               ]}
             />
 
-            {/* E-Commerce */}
-            <SidebarDropdown
-              id="ecommerce"
-              title="E-commerce"
-              url="/ecommerce"
-              svgpaths={[
-                {
-                  svgpath:
-                    "M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z",
-                  colorLight: "text-indigo-300",
-                  colorDark: "text-slate-400",
-                },
-                {
-                  svgpath: "M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z",
-                  colorLight: "text-indigo-600",
-                  colorDark: "text-slate-700",
-                },
-                {
-                  svgpath:
-                    "M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z",
-                  colorLight: "text-indigo-500",
-                  colorDark: "text-slate-600",
-                },
-              ]}
-              subpaths={[
-                { title: "Main", url: "/ecommerce" },
-                { title: "Analytics", url: "/ecommerce/analytics" },
-              ]}
-              expandOnly={expandOnly}
-              setSidebarExpanded={setSidebarExpanded}
-            />
-
-            {/* Calendar */}
+            {/* Home */}
             <SidebarButton
-              title="Calendar"
-              id="calendar"
-              url="/calendar"
+              title="Home"
+              id="home"
+              url={baseURL + "home"}
               svgpaths={[
                 {
                   svgpath: "M1 3h22v20H1z",
@@ -187,7 +165,7 @@ export default function Sidebar() {
             <SidebarDropdown
               id="teams"
               title="Teams"
-              url="/teams"
+              url={baseURL + "teams"}
               svgpaths={[
                 {
                   svgpath: "M1 3h22v20H1z",
@@ -201,8 +179,11 @@ export default function Sidebar() {
                 },
               ]}
               subpaths={[
-                { title: "All Teams", url: "/teams" },
-                { title: "Wienerschnitzel", url: "/teams/wienerschnitzel" },
+                { title: "All Teams", url: baseURL + "teams" },
+                {
+                  title: "Wienerschnitzel",
+                  url: baseURL + "teams/wienerschnitzel",
+                },
               ]}
               expandOnly={expandOnly}
               setSidebarExpanded={setSidebarExpanded}
