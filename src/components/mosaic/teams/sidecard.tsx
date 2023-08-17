@@ -44,14 +44,16 @@ export default function Sidecard(props: SidecardProps): JSX.Element {
       <div className="lg:sticky lg:top-16 bg-slate-50 dark:bg-gradient-to-b dark:from-slate-800 dark:to-slate-900 lg:overflow-x-hidden lg:overflow-y-auto no-scrollbar lg:shrink-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 lg:w-[390px] lg:h-[calc(100dvh-64px)]">
         <div className="py-8 px-4 lg:px-8">
           <div className="max-w-sm mx-auto lg:max-w-none">
-            <div className="text-md text-slate-600 dark:text-slate-100 text-center">
-              {teamAndSeason.city}
-            </div>
-            <div className="text-xl text-slate-800 dark:text-slate-100 font-semibold text-center mb-6">
-              {teamAndSeason.name}
-            </div>
+            <Link href={`/teams/${teamFromID.name_id}`}>
+              <div className="text-md text-slate-600 dark:text-slate-100">
+                {teamAndSeason.city}
+              </div>
+              <div className="text-xl text-slate-800 dark:text-slate-100 font-semibold text-center mb-6">
+                {teamAndSeason.name}
+              </div>
+            </Link>
 
-            {/* Credit Card */}
+            {/* Big Logo */}
             <div className="relative aspect-square bg-gradient-to-tr from-slate-600 to-slate-800 p-5 shadow-lg overflow-hidden">
               <Image src={ChiefsLogo} alt="Logo" />
             </div>
@@ -106,7 +108,7 @@ export default function Sidecard(props: SidecardProps): JSX.Element {
                           game.winner_team_id === props.teamID
                             ? gameColors.win
                             : gameColors.loss
-                        } flex justify-between text-sm mb-2`}
+                        } flex justify-between text-sm mb-2 p-1  `}
                       >
                         <div>Week {game.week}</div>
                         <div>

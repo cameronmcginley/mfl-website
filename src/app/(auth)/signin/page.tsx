@@ -4,6 +4,7 @@ import { auth } from "@/src/firebase/config";
 import { GoogleAuthProvider } from "firebase/auth";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
+import { useEffect } from "react";
 import AuthHeader from "../auth-header";
 
 export const metadata = {
@@ -12,45 +13,51 @@ export const metadata = {
 };
 
 export default function SignIn(): JSX.Element {
-  const redirectUrl = "/";
+  const redirectUrl = "/teams";
   const signInText = "Sign in to your account";
 
   // https://firebase.google.com/docs/auth/web/firebaseui?hl=en&authuser=0
   // https://github.com/firebase/firebaseui-web
-  const ui = new firebaseui.auth.AuthUI(auth);
+  // https://github.com/firebase/firebaseui-web/issues/216
+  useEffect(() => {
+    const ui =
+      firebaseui.auth.AuthUI.getInstance() != null ||
+      new firebaseui.auth.AuthUI(auth);
 
-  const uiConfig = {
-    callbacks: {
-      signInSuccessWithAuthResult: function (
-        authResult: firebaseui.auth.AuthResult,
-        redirectUrl: string
-      ) {
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-        return true;
+    const uiConfig = {
+      callbacks: {
+        signInSuccessWithAuthResult: function (
+          authResult: firebaseui.auth.AuthResult,
+          redirectUrl: string
+        ) {
+          // User successfully signed in.
+          // Return type determines whether we continue the redirect automatically
+          // or whether we leave that to developer to handle.
+          return true;
+        },
+        uiShown: function () {
+          // The widget is rendered, hide loading bar
+          const loaderElement = document.getElementById("loader");
+          if (loaderElement != null) {
+            loaderElement.style.display = "none";
+          } else {
+            console.error("Loader element not found");
+          }
+        },
       },
-      uiShown: function () {
-        // The widget is rendered, hide loading bar
-        const loaderElement = document.getElementById("loader");
-        if (loaderElement != null) {
-          loaderElement.style.display = "none";
-        } else {
-          console.error("Loader element not found");
-        }
-      },
-    },
-    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInFlow: "popup",
-    signInSuccessUrl: redirectUrl,
-    signInOptions: [
-      // Leave the lines as is for the providers you want to offer your users.
-      GoogleAuthProvider.PROVIDER_ID,
-    ],
-  };
+      // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+      signInFlow: "popup",
+      signInSuccessUrl: redirectUrl,
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        GoogleAuthProvider.PROVIDER_ID,
+      ],
+    };
 
-  // The start method will wait until the DOM is loaded.
-  ui.start("#firebaseui-auth-container", uiConfig);
+    // The start method will wait until the DOM is loaded.
+    ui.start("#firebaseui-auth-container", uiConfig);
+  }, []);
+
   return (
     // Page
     <main className="bg-white dark:bg-slate-900">
