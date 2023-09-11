@@ -19,7 +19,8 @@
         "owner": "John Doe",
         "name": "Examples",
         "city": "New York",
-        "games": ["123"]
+        "games": ["123"],
+        "curr_season_type": "finished"
       },
       "2016": {
         "wins": 10,
@@ -28,7 +29,8 @@
         "owner": "John Doe2",
         "name": "Examples2",
         "city": "New 2York",
-        "games": ["123", "456", "789", "101112", "12"]
+        "games": ["123", "456", "789", "101112", "12"],
+        "curr_season_type": "regular"
       }
     }
   },

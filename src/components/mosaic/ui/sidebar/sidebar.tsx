@@ -1,5 +1,6 @@
 "use client";
 
+import LeaguesData from "@/data/leagues.json";
 import { useAppProvider } from "@/src/app/app-provider";
 import { Transition } from "@headlessui/react";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
@@ -25,6 +26,10 @@ export default function Sidebar() {
   useEffect(() => {
     setleagueID(params.leagueID);
   }, [params]);
+
+  // Get league name from data
+  const league = LeaguesData.find((league) => league.id === leagueID);
+  const leagueName = league?.name;
 
   const baseURL = "/leagues/" + leagueID + "/";
 
@@ -121,7 +126,7 @@ export default function Sidebar() {
 
         {/* Links */}
         <div className="space-y-8">
-          <SidebarGroup title="Group 1">
+          <SidebarGroup title="">
             {/* Leagues */}
             <SidebarButton
               title="Leagues"
@@ -141,7 +146,8 @@ export default function Sidebar() {
                 },
               ]}
             />
-
+          </SidebarGroup>
+          <SidebarGroup title={leagueName}>
             {/* Home */}
             <SidebarButton
               title="Home"
@@ -188,13 +194,12 @@ export default function Sidebar() {
               expandOnly={expandOnly}
               setSidebarExpanded={setSidebarExpanded}
             />
-          </SidebarGroup>
-          <SidebarGroup title="Group 2">
-            {/* Card */}
+
+            {/* Schedule */}
             <SidebarButton
-              title="Cards"
-              id="cards"
-              url="/cards"
+              title="Schedule"
+              id="schedule"
+              url={baseURL + "schedule"}
               svgpaths={[
                 {
                   svgpath: "M1 3h22v20H1z",
